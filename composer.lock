@@ -1,0 +1,62 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "a0937e364c548ac4534afbb856505a3b",
+    "packages": [
+        {
+            "name": "localgod/console-color",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/localgod/console-color.git",
+                "reference": "19f97248b49f20412ed1e651458d0820c54f029a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/localgod/console-color/zipball/19f97248b49f20412ed1e651458d0820c54f029a",
+                "reference": "19f97248b49f20412ed1e651458d0820c54f029a",
+                "shasum": ""
+            },
+            "require-dev": {
+                "behat/behat": ">3.1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Localgod\\Console\\": "src/console"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes Skov Frandsen",
+                    "email": "localgod@heaven.dk",
+                    "homepage": "https://github.com/localgod",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Tool for working with console colors",
+            "homepage": "http://localgod.github.io/console-color/",
+            "keywords": [
+                "console color"
+            ],
+            "time": "2016-06-19T18:02:08+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.2.0"
+    },
+    "platform-dev": []
+}
