@@ -33,10 +33,18 @@
          */
         protected $clearProgress;
 
+        /**
+         * Holds the logs to be displayed.
+         * 
+         * @var array<string>
+         */
+        protected $logs;
+
         public function __construct() {
             $this->currentIndex = 1;
             $this->style = DefaultStyle::class;
             $this->clearProgress = true;
+            $this->logs = [];
         }
 
         /**
