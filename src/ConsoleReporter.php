@@ -102,41 +102,33 @@
         }
 
         public function info(string $message): ConsoleReporter {
-            $this->logs[] = [
-                'time' => DateTime::createFromFormat('U.u', microtime(TRUE)),
-                'message' => $message,
-                'severity' => Severity::INFO
-            ];
+            $this->printLog($message, $this->now(), Severity::INFO);
 
             return $this;
         }
 
+        private function now(): string {
+            return DateTime::createFromFormat('U.u', microtime(TRUE))->format('Y-m-d H:i:s.u');
+        }
+
+        private function printLog($message, $time, $severity): void {
+            echo str_pad("  {$time} [{$severity}] {$message}", $this->maxProgressBarLength(), ' ', STR_PAD_RIGHT) . "\n\n";
+        }
+
         public function warning(string $message): ConsoleReporter {
-            $this->logs[] = [
-                'time' => DateTime::createFromFormat('U.u', microtime(TRUE)),
-                'message' => $message,
-                'severity' => Severity::WARNING
-            ];
+            $this->printLog($message, $this->now(), Severity::WARNING);
 
             return $this;
         }
 
         public function debug(string $message): ConsoleReporter {
-            $this->logs[] = [
-                'time' => DateTime::createFromFormat('U.u', microtime(TRUE)),
-                'message' => $message,
-                'severity' => Severity::DEBUG
-            ];
+            $this->printLog($message, $this->now(), Severity::DEBUG);
 
             return $this;
         }
 
         public function error(string $message): ConsoleReporter {
-            $this->logs[] = [
-                'time' => DateTime::createFromFormat('U.u', microtime(TRUE)),
-                'message' => $message,
-                'severity' => Severity::ERROR
-            ];
+            $this->printLog($message, $this->now(), Severity::ERROR);
 
             return $this;
         }
@@ -146,6 +138,17 @@
          */
         private function printLineReturnInTheBegining(): ConsoleReporter {
             if( $this->currentIndex === 1 ) {
+                echo "\n";
+            }
+
+            return $this;
+        }
+
+        /**
+         * If this is the last report, print a new line to improve the readability.
+         */
+        private function printLineReturnInTheEnd(): ConsoleReporter {
+            if( $this->currentIndex === $this->maximumEntries ) {
                 echo "\n";
             }
 
@@ -165,11 +168,9 @@
                 if( $this->clearProgress === false ) {
                     $this->printProgress($clear = false);
                 }
-
-                foreach( $this->logs as $log ) {
-                    echo "  " . $log['time']->format('Y-m-d H:i:s.u') . " [{$log['severity']}] {$log['message']} \n";
-                }
             }
+
+            $this->printLineReturnInTheEnd();
 
             return $this;
         }
@@ -181,20 +182,20 @@
          */
         private function printProgress(bool $clear = true): void {
             $current = str_pad($this->currentIndex, strlen($this->maximumEntries), "0", STR_PAD_LEFT);
-            $percentage = round(($this->currentIndex / $this->maximumEntries) * 100, 0, PHP_ROUND_HALF_DOWN);
+            $percentage = str_pad(round(($this->currentIndex / $this->maximumEntries) * 100, 0, PHP_ROUND_HALF_DOWN), 3, '0', STR_PAD_LEFT);
 
             echo "  $current / {$this->maximumEntries} ";
             echo $this->style::startCharacter();
             echo str_repeat($this->style::progressingCharacter(), $this->currentIndex) . str_repeat($this->style::progressedCharacter(), $this->maximumEntries - $this->currentIndex);
             echo $this->style::endCharacter();
-            echo " $percentage % ";
-            
-            if( $clear === true ) {
-                echo "\r";
-            }
-            else {
-                echo "\n\n";
-            }
+            echo " $percentage %\r";
+        }
+
+        /**
+         * Returns the max length of the progress bar.
+         */
+        private function maxProgressBarLength(): int {
+            return 2 + strlen($this->maximumEntries) + 3 + strlen($this->maximumEntries) + strlen($this->style::startCharacter()) + $this->maximumEntries + strlen($this->style::endCharacter()) + 7;
         }
     }
 ?>

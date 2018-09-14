@@ -5,15 +5,15 @@
 
     class ModernRectangular implements ConsoleStylable {
         public static function progressingCharacter(): string {
-            return ' ◼';
+            return '◼';
         }
 
         public static function progressedCharacter(): string {
-            return ' ◻';
+            return '◻';
         }
 
         public static function startCharacter(): string {
-            return '[';
+            return '[ ';
         }
 
         public static function endCharacter(): string {
