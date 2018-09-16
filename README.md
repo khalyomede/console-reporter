@@ -1,5 +1,8 @@
 # Console reporter
 
+
+![Packagist](https://img.shields.io/packagist/l/khalyomede/console-reporter.svg)
+
 ```php
 $numbers = range(1, 10);
 $reporter->setMaxEntries(10);
