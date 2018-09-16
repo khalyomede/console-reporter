@@ -112,7 +112,7 @@
         }
 
         private function printLog($message, $time, $severity): void {
-            echo str_pad("  {$time} [{$severity}] {$message}", $this->maxProgressBarLength(), ' ', STR_PAD_RIGHT) . "\n\n";
+            echo str_pad("  {$time} [{$severity}] {$message}", $this->maxProgressBarLength(), ' ', STR_PAD_RIGHT) . "\n";
         }
 
         public function warning(string $message): ConsoleReporter {
@@ -161,7 +161,6 @@
          * @return void
          */
         public function report(): ConsoleReporter {
-            $this->printLineReturnInTheBegining();
             $this->printProgress();
 
             if( $this->currentIndex === $this->maximumEntries ) {
@@ -169,8 +168,6 @@
                     $this->printProgress($clear = false);
                 }
             }
-
-            $this->printLineReturnInTheEnd();
 
             return $this;
         }
