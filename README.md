@@ -70,3 +70,7 @@ $ php example/example-1.php
 Do no see your OS or shell ? This means it has not been tested. 
 
 You are more than welcomed if you want to test it in another configuration than one of the above. Just fill in an issue.
+
+## Credits
+
+Powershell font photo taken from [4sysops](https://4sysops.com/archives/change-powershell-console-font-size-with-cmdlet/)
