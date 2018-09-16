@@ -1,6 +1,8 @@
 # Console reporter
 
 
+![PHP from Packagist](https://img.shields.io/packagist/php-v/khalyomede/console-reporter.svg)
+![Packagist](https://img.shields.io/packagist/v/khalyomede/console-reporter.svg)
 ![Packagist](https://img.shields.io/packagist/l/khalyomede/console-reporter.svg)
 
 ```php
