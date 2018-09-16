@@ -2,7 +2,6 @@
     require(__DIR__ . '/../vendor/autoload.php');
 
     use Khalyomede\ConsoleReporter as Reporter;
-    use Khalyomede\Style\ModernRectangular;
 
     $reporter = new Reporter;
     $reporter->setMaxEntries(24);
