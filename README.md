@@ -71,6 +71,14 @@ Do no see your OS or shell ? This means it has not been tested.
 
 You are more than welcomed if you want to test it in another configuration than one of the above. Just fill in an issue.
 
+### PowerShell configuration
+
+Check that your font configuration is **not** set to `Raster Fonts`:
+
+![Photo of the powersheel configuration panel, on the font section](https://image.ibb.co/b79c7K/Power_Shell_Properties_Font_size_thumb.png)
+
+Check it to something else than `Raster Fonts`. The characters used in some progress bar should now apear correctly.
+
 ## Credits
 
 Powershell font photo taken from [4sysops](https://4sysops.com/archives/change-powershell-console-font-size-with-cmdlet/)
