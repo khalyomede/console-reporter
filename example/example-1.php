@@ -5,9 +5,9 @@
     use Khalyomede\Style\ModernRectangular;
 
     $reporter = new Reporter;
-    $reporter->setMaxEntries(48);
+    $reporter->setMaxEntries(24);
 
-    foreach( range(1, 48) as $integer ) {
+    foreach( range(1, 24) as $integer ) {
         $sleepTimeInMicroseconds = rand(5000, 500000);
 
         usleep($sleepTimeInMicroseconds);
