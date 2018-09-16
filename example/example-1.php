@@ -8,11 +8,12 @@
     $reporter->setMaxEntries(48);
 
     foreach( range(1, 48) as $integer ) {
-        usleep(100000);
+        $sleepTimeInMicroseconds = rand(5000, 500000);
 
+        usleep($sleepTimeInMicroseconds);
 
         if( $integer % 8 === 0 ) {
-            $reporter->info("tests #$integer in progression...");
+            $reporter->info("test #$integer in progression...");
         }
 
         $reporter->report();
