@@ -31,12 +31,16 @@ require(__DIR__ . '/../vendor/autoload.php');
 use Khalyomede\ConsoleReporter as Reporter;
 
 $reporter = new Reporter;
-$reporter->setMaxEntries(48);
-$reporter->doNotClearProgress();
-$reporter->info('No errors, 48 tests completed.');
+$reporter->setMaxEntries(24);
 
-foreach( range(1, 48) as $integer ) {
-  usleep(100000);
+foreach( range(1, 24) as $integer ) {
+  $sleepTimeInMicroseconds = rand(5000, 500000);
+
+  usleep($sleepTimeInMicroseconds);
+
+  if( $integer % 8 === 0 ) {
+    $reporter->info("test #$integer in progression...");
+  }
 
   $reporter->report();
   $reporter->advance();
@@ -46,9 +50,13 @@ foreach( range(1, 48) as $integer ) {
 ```bash
 $ php example/example-1.php
 
-  48 / 48 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 100 %
+  2018-09-16 08:45:29.595600 [INFO] test #8 in progression...
 
-  2018-09-13 21:42:19.453300 [INFO] No errors, 48 tests completed.
+  2018-09-16 08:45:32.205500 [INFO] test #16 in progression...
+
+  2018-09-16 08:45:34.570100 [INFO] test #24 in progression...
+
+  24 / 24 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 100 %
 ```
 
 ## Supported shells
