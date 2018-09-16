@@ -5,19 +5,7 @@
 ![Packagist](https://img.shields.io/packagist/v/khalyomede/console-reporter.svg)
 ![Packagist](https://img.shields.io/packagist/l/khalyomede/console-reporter.svg)
 
-```php
-$numbers = range(1, 10);
-$reporter->setMaxEntries(10);
-
-foreach( $numbers as $number ) {
-    $reporter->report();
-    $reporter->advance();
-}
-```
-
-```bash
-10 / 10 ░░░░░░░░░ 100 %
-```
+![Gif showing a command line that trigger the console report, with the progress bar and the logs that stack themselves above the progress bar as the progress bar advance until 100 percent](https://image.ibb.co/n63Fuz/landing_gif_2_khalyomede_console_reporter.gif)
 
 ## Summary
 
