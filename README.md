@@ -11,6 +11,7 @@
 
 - [Installation](#installation)
 - [Example of use](#example-of-use)
+- [Supported shells](#supported-shells)
 
 ## Installation
 
@@ -49,3 +50,15 @@ $ php example/example-1.php
 
   2018-09-13 21:42:19.453300 [INFO] No errors, 48 tests completed.
 ```
+
+## Supported shells
+
+| Operating system | Shell      | Tested ? | Working ? | Need configuration ? |
+|------------------|------------|----------|-----------|----------------------|
+| Windows          | bash       | ✔        | ✔         |                      |
+| Windows          | MS-DOS     | ✔        |           |                      |
+| Windows          | PowerShell | ✔        | ✔         | yes                  |
+
+Do no see your OS or shell ? This means it has not been tested. 
+
+You are more than welcomed if you want to test it in another configuration than one of the above. Just fill in an issue.
