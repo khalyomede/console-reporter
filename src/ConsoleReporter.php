@@ -183,7 +183,7 @@
 
             echo "  $current / {$this->maximumEntries} ";
             echo $this->style::startCharacter();
-            echo str_repeat($this->style::progressingCharacter(), $this->currentIndex) . str_repeat($this->style::progressedCharacter(), $this->maximumEntries - $this->currentIndex);
+            echo str_repeat($this->style::progressedCharacter(), $this->currentIndex) . str_repeat($this->style::progressingCharacter(), $this->maximumEntries - $this->currentIndex);
             echo $this->style::endCharacter();
             echo " $percentage %\r";
         }
