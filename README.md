@@ -22,6 +22,7 @@ composer require --dev khalyomede/console-reporter:0.*
 ## Example of use
 
 - [Example 1: simple use case](#example-1-simple-use-case)
+- [Example 2: using a built-in progress bar style](#example-2-using-a-built-in-progress-bar-style)
 
 ### Example 1: simple use case
 
@@ -57,6 +58,40 @@ $ php example/example-1.php
   2018-09-16 08:45:34.570100 [INFO] test #24 in progression...
 
   24 / 24 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 100 %
+```
+
+### Example 2: using a built-in progress bar style
+
+```php
+require(__DIR__ . '/../vendor/autoload.php');
+
+use Khalyomede\ConsoleReporter as Reporter;
+use Khalyomede\Style\ModernRounded;
+
+$reporter = new Reporter;
+$reporter->setMaxEntries(24);
+$reporter->setStyle(ModernRounded::class);
+
+foreach( range(1, 24) as $integer ) {
+  $sleepTimeInMicroseconds = rand(5000, 500000);
+
+  usleep($sleepTimeInMicroseconds);
+
+  if( $integer % 8 === 0 ) {
+    $reporter->info("test #$integer in progression...");
+  }
+
+  $reporter->report();
+  $reporter->advance();
+}
+```
+
+```
+$ php example/example-2.php
+  2018-09-29 18:07:40.433600 [INFO] test #8 in progression...
+  2018-09-29 18:07:42.810300 [INFO] test #16 in progression...
+  2018-09-29 18:07:45.291100 [INFO] test #24 in progression...
+  24 / 24 [●●●●●●●●●●●●●●●●●●●●●●●●] 100 %
 ```
 
 ## Supported shells
