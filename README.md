@@ -50,13 +50,9 @@ foreach( range(1, 24) as $integer ) {
 
 ```bash
 $ php example/example-1.php
-
   2018-09-16 08:45:29.595600 [INFO] test #8 in progression...
-
   2018-09-16 08:45:32.205500 [INFO] test #16 in progression...
-
   2018-09-16 08:45:34.570100 [INFO] test #24 in progression...
-
   24 / 24 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 100 %
 ```
 
