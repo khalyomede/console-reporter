@@ -23,6 +23,7 @@ composer require --dev khalyomede/console-reporter:0.*
 
 - [Example 1: simple use case](#example-1-simple-use-case)
 - [Example 2: using a built-in progress bar style](#example-2-using-a-built-in-progress-bar-style)
+- [Example 3: using your own progress bar style](#example-3-using-your-own-progress-bar-style)
 
 ### Example 1: simple use case
 
@@ -88,6 +89,63 @@ $ php example/example-2.php
   2018-09-29 18:07:42.810300 [INFO] test #16 in progression...
   2018-09-29 18:07:45.291100 [INFO] test #24 in progression...
   24 / 24 [●●●●●●●●●●●●●●●●●●●●●●●●] 100 %
+```
+
+### Example 3: using your own progress bar style
+
+```php
+require(__DIR__ . '/../vendor/autoload.php');
+
+use Khalyomede\ConsoleStylable;
+use Khalyomede\ConsoleReporter as Reporter;
+
+class ModernStar implements ConsoleStylable {
+  public static function progressingCharacter(): string {
+    return '✧';
+  }
+
+  public static function progressedCharacter(): string {
+    return '✦';
+  }
+
+  public static function startCharacter(): string {
+    return '[';
+  }
+
+  public static function endCharacter(): string {
+    return ']';
+  }
+}
+
+const MAX = 24;
+
+$numbers = range(1, MAX);
+
+$reporter = new Reporter;
+
+$reporter->setMaxEntries(MAX);
+$reporter->setStyle(ModernStar::class);
+
+foreach( $numbers as $number ) {
+  $microseconds = rand(50000, 500000);
+
+  usleep($microseconds);
+
+  if( $number % 8 === 0 ) {
+    $reporter->info("running iteration #$number");
+  }
+
+  $reporter->report();
+  $reporter->advance();
+}
+```
+
+```bash
+$ php example/example-3.php
+  2018-09-29 20:34:16.945300 [INFO] running iteration #8
+  2018-09-29 20:34:18.934700 [INFO] running iteration #16
+  2018-09-29 20:34:21.071200 [INFO] running iteration #24
+  24 / 24 [✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦] 100 %
 ```
 
 ## Supported shells
