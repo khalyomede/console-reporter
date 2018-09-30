@@ -153,7 +153,7 @@ $ php example/example-3.php
 | Operating system | Shell      | Tested ? | Working ? | Need configuration ? |
 |------------------|------------|----------|-----------|----------------------|
 | Windows          | bash       | ✔        | ✔         |                      |
-| Windows          | MS-DOS     | ✔        |           |                      |
+| Windows          | MS-DOS     | ✔        | ✔         | yes                  |
 | Windows          | PowerShell | ✔        | ✔         | yes                  |
 
 Do no see your OS or shell ? This means it has not been tested. 
