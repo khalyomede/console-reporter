@@ -13,11 +13,11 @@
         }
 
         public static function startCharacter(): string {
-            return '[ ';
+            return '[';
         }
 
         public static function endCharacter(): string {
-            return '  ]';
+            return ']';
         }
     }
 ?>
