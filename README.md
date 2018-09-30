@@ -11,6 +11,7 @@
 
 - [Installation](#installation)
 - [Example of use](#example-of-use)
+- [Available built-in progress bar styles](#available-built-in-progress-bar-styles)
 - [Supported shells](#supported-shells)
 
 ## Installation
@@ -146,6 +147,29 @@ $ php example/example-3.php
   2018-09-29 20:34:18.934700 [INFO] running iteration #16
   2018-09-29 20:34:21.071200 [INFO] running iteration #24
   24 / 24 [✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦] 100 %
+```
+
+## Available built-in progress bar styles
+
+- [Modern rounded](#modern-rounded)
+- [Modern rectangular](#modern-rectangular)
+
+### Modern rounded
+
+```bash
+2018-09-30 14:52:31.158200 [INFO] test #8 in progression...
+2018-09-30 14:52:32.366100 [INFO] test #16 in progression...
+2018-09-30 14:52:33.885100 [INFO] test #24 in progression...
+24 / 24 [●●●●●●●●●●●●●●●●●●●●●●●●] 100 %
+```
+
+### Modern rectangular
+
+```bash
+2018-09-30 14:55:05.430200 [INFO] test #8 in progression...
+2018-09-30 14:55:07.795900 [INFO] test #16 in progression...
+2018-09-30 14:55:09.755300 [INFO] test #24 in progression...
+24 / 24 [◼◼◼◼◼◼◼◼◼◼◼◼◼◼◼◼◼◼◼◼◼◼◼◼] 100 %
 ```
 
 ## Supported shells
