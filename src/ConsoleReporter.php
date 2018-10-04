@@ -49,6 +49,13 @@
         protected $severity;
 
         /**
+         * Stores the maximum entries to compute the percentage and display the progress bar "progressing" characters.
+         * 
+         * @var int
+         */
+        protected $maximumEntries;
+
+        /**
          * Tells the reporter to display icons for the severity instead of text.
          * 
          * @var bool
