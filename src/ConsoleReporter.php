@@ -130,6 +130,13 @@
             return $this;
         }
 
+        public function success(string $message): ConsoleReporter {
+            $this->severity = Severity::SUCCESS;
+            $this->printLog($message, $this->now());
+
+            return $this;
+        }
+
         private function now(): string {
             $datetime = DateTime::createFromFormat('U.u', (string) microtime(TRUE));
             
@@ -176,7 +183,12 @@
                     break;
 
                 case Severity::ERROR:
-                    $icon = ' ✕ ';
+                    $icon = ' ✖ ';
+
+                    break;
+
+                case Severity::SUCCESS:
+                    $icon = ' ✓ ';
 
                     break;
                 
