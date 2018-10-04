@@ -25,6 +25,7 @@ composer require --dev khalyomede/console-reporter:0.*
 - [Example 1: simple use case](#example-1-simple-use-case)
 - [Example 2: using a built-in progress bar style](#example-2-using-a-built-in-progress-bar-style)
 - [Example 3: using your own progress bar style](#example-3-using-your-own-progress-bar-style)
+- [Example 4: display logs using icons](#example-4-display-logs-using-icons)
 
 ### Example 1: simple use case
 
@@ -147,6 +148,39 @@ $ php example/example-3.php
   2018-09-29 20:34:18.934700 [INFO] running iteration #16
   2018-09-29 20:34:21.071200 [INFO] running iteration #24
   24 / 24 [✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦✦] 100 %
+```
+
+### Example 4: display logs using icons
+
+```php
+require(__DIR__ . '/../vendor/autoload.php');
+
+use Khalyomede\ConsoleReporter as Reporter;
+
+$reporter = new Reporter;
+$reporter->setMaxEntries(24);
+$reporter->displaySeverityWithIcons();
+
+foreach( range(1, 24) as $integer ) {
+  $sleepTimeInMicroseconds = rand(5000, 500000);
+
+  usleep($sleepTimeInMicroseconds);
+
+  if( $integer % 8 === 0 ) {
+    $reporter->info("test #$integer in progression...");
+  }
+
+  $reporter->report();
+  $reporter->advance();
+}
+```
+
+```bash
+$ php example/example-4.php
+  2018-10-04 21:42:31.842600  ⓘ  test #8 in progression...
+  2018-10-04 21:42:33.992700  ⓘ  test #16 in progression...
+  2018-10-04 21:42:35.393700  ⓘ  test #24 in progression...
+  24 / 24 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 100 %
 ```
 
 ## Available built-in progress bar styles
