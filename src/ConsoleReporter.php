@@ -131,7 +131,9 @@
         }
 
         private function now(): string {
-            return DateTime::createFromFormat('U.u', microtime(TRUE))->format('Y-m-d H:i:s.u');
+            $datetime = DateTime::createFromFormat('U.u', (string) microtime(TRUE));
+            
+            return $datetime->format('Y-m-d H:i:s.u');
         }
 
         private function printLog($message, $time): void {
