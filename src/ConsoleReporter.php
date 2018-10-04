@@ -6,6 +6,7 @@
     use Khalyomede\Style\DefaultStyle;
     use Khalyomede\Severity;
     use Localgod\Console\Color;
+    use RuntimeException;
 
     class ConsoleReporter {
         /**
@@ -39,6 +40,20 @@
          * @var array<string>
          */
         protected $logs;
+
+        /**
+         * Current severity (used for the log).
+         * 
+         * @var string
+         */
+        protected $severity;
+
+        /**
+         * Tells the reporter to display icons for the severity instead of text.
+         * 
+         * @var bool
+         */
+        protected $displaySeverityWithIcons;
 
         public function __construct() {
             $this->currentIndex = 1;
@@ -102,7 +117,8 @@
         }
 
         public function info(string $message): ConsoleReporter {
-            $this->printLog($message, $this->now(), Severity::INFO);
+            $this->severity = Severity::INFO;
+            $this->printLog($message, $this->now());
 
             return $this;
         }
@@ -111,24 +127,76 @@
             return DateTime::createFromFormat('U.u', microtime(TRUE))->format('Y-m-d H:i:s.u');
         }
 
-        private function printLog($message, $time, $severity): void {
-            echo str_pad("  {$time} [{$severity}] {$message}", $this->maxProgressBarLength(), ' ', STR_PAD_RIGHT) . "\n";
+        private function printLog($message, $time): void {
+            $severity = $this->displaySeverityWithIcons === true ? $this->severityToIcon() : $this->severityToText();
+
+            echo str_pad("  {$time} $severity {$message}", $this->maxProgressBarLength(), ' ', STR_PAD_RIGHT) . "\n";
+        }
+
+        /**
+         * Get the severity as text.
+         * 
+         * @return string
+         */
+        private function severityToText(): string {
+            return "[{$this->severity}]";
+        }
+
+        /**
+         * Get the severity as icon.
+         * 
+         * @return string
+         */
+        private function severityToIcon(): string {
+            $icon = '';
+
+            switch( $this->severity ) {
+                case Severity::INFO:
+                    $icon = ' ⓘ ';
+
+                    break;
+
+                case Severity::DEBUG:
+                    $icon = ' ⚐ ';
+
+                    break;
+
+                case Severity::WARNING:
+                    $icon = ' ⚠ ';
+
+                    break;
+
+                case Severity::ERROR:
+                    $icon = ' ✕ ';
+
+                    break;
+                
+                default:
+                    throw new RuntimeException('Unsupported severity "' . $this->severity . '"');
+
+                    break;
+            }
+
+            return $icon;
         }
 
         public function warning(string $message): ConsoleReporter {
-            $this->printLog($message, $this->now(), Severity::WARNING);
+            $this->severity = Severity::WARNING;
+            $this->printLog($message, $this->now());
 
             return $this;
         }
 
         public function debug(string $message): ConsoleReporter {
-            $this->printLog($message, $this->now(), Severity::DEBUG);
+            $this->severity = Severity::DEBUG;
+            $this->printLog($message, $this->now());
 
             return $this;
         }
 
         public function error(string $message): ConsoleReporter {
-            $this->printLog($message, $this->now(), Severity::ERROR);
+            $this->severity = Severity::ERROR;
+            $this->printLog($message, $this->now());
 
             return $this;
         }
@@ -193,6 +261,20 @@
          */
         private function maxProgressBarLength(): int {
             return 2 + strlen($this->maximumEntries) + 3 + strlen($this->maximumEntries) + strlen($this->style::startCharacter()) + $this->maximumEntries + strlen($this->style::endCharacter()) + 7;
+        }
+
+        /**
+         * Set icons on the logs instead of text for the severity.
+         * 
+         * @return \Khalyomede\ConsoleReporter
+         * @example 
+         * $reporter = new \Khalyomede\ConsoleReporter;
+         * $reporter->displaySeverityWithIcons();
+         */
+        public function displaySeverityWithIcons(): ConsoleReporter {
+            $this->displaySeverityWithIcons = true;
+            
+            return $this;
         }
     }
 ?>
