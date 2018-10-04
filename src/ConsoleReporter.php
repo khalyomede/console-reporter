@@ -87,8 +87,8 @@
         /**
          * Set the style, to customize the progress characters.
          * 
-         * @param string The name of the style class that implements Khalyomede\Style\ConsoleStylable
-         * @return Khalyomede\ConsoleReporter
+         * @param string $class The name of the style class that implements Khalyomede\Style\ConsoleStylable
+         * @return \Khalyomede\ConsoleReporter
          */
         public function setStyle(string $class): ConsoleReporter {
             $this->style = $class;
