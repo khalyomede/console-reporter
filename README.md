@@ -26,6 +26,7 @@ composer require --dev khalyomede/console-reporter:0.*
 - [Example 2: using a built-in progress bar style](#example-2-using-a-built-in-progress-bar-style)
 - [Example 3: using your own progress bar style](#example-3-using-your-own-progress-bar-style)
 - [Example 4: display logs using icons](#example-4-display-logs-using-icons)
+- [Example 5: force the size of the progress bar](#example-5-force-the-size-of-the-progress-bar)
 
 ### Example 1: simple use case
 
@@ -181,6 +182,34 @@ $ php example/example-4.php
   2018-10-04 21:42:33.992700  ⓘ  test #16 in progression...
   2018-10-04 21:42:35.393700  ⓘ  test #24 in progression...
   24 / 24 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 100 %
+```
+
+### Example 5: force the size of the progress bar
+
+```php
+require(__DIR__ . '/../vendor/autoload.php');
+
+use Khalyomede\ConsoleReporter as Reporter;
+
+$reporter = new Reporter;
+$reporter->setMaxEntries(10);
+$reporter->setProgressBarSize(30);
+
+$numbers = range(0, 9);
+
+foreach( $numbers as $number ) {
+  $sleepTimeInMicroSeconds = rand(50000, 500000);
+  
+  usleep($sleepTimeInMicroSeconds);
+
+  $reporter->report();
+  $reporter->advance();
+}
+```
+
+```bash
+$ php example/example-5.php
+  10 / 10 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓ 100 %
 ```
 
 ## Available built-in progress bar styles
