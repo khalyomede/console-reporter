@@ -1,12 +1,12 @@
 <?php
     namespace Khalyomede;
 
-    use InvalidArgumentException;
     use DateTime;
     use Khalyomede\Style\DefaultStyle;
     use Khalyomede\Severity;
     use Localgod\Console\Color;
     use RuntimeException;
+    use InvalidArgumentException;
 
     class ConsoleReporter {
         /**
@@ -62,11 +62,29 @@
          */
         protected $displaySeverityWithIcons;
 
+        /**
+         * Tells the reporter to display a restricted version of the progress bar.
+         * 
+         * @var bool
+         */
+        protected $restrictedProgressBarSize;
+
+        /**
+         * Sets the max lenght of the progress bar if needed.
+         * 
+         * @var int
+         * @see ConsoleReporter::$restrictedProgressBarSize
+         * @see ConsoleReporter::setProgressBarSize()
+         */
+        protected $maxProgressBarSize;
+
         public function __construct() {
             $this->currentIndex = 1;
             $this->style = DefaultStyle::class;
             $this->clearProgress = true;
             $this->logs = [];
+            $this->restrictedProgressBarSize = false;
+            $this->maxProgressBarSize = 0;
         }
 
         /**
@@ -272,16 +290,26 @@
 
             echo "  $current / {$this->maximumEntries} ";
             echo $this->style::startCharacter();
-            echo str_repeat($this->style::progressedCharacter(), $this->currentIndex) . str_repeat($this->style::progressingCharacter(), $this->maximumEntries - $this->currentIndex);
+            echo str_repeat($this->style::progressedCharacter(), $this->numberOfProgressCharacterToPrint()) . str_repeat($this->style::progressingCharacter(), ($this->maximumEntries()) - $this->numberOfProgressCharacterToPrint());
             echo $this->style::endCharacter();
             echo " $percentage %\r";
+        }
+
+        /**
+         * Returns the number of progressed character to displayed.
+         * This depends whether we are in restricted progress bar size mode or not, using ConsoleReporter::setProgressBarSize().
+         * 
+         * @return int
+         */
+        private function maximumEntries(): int {
+            return $this->restrictedProgressBarSize === true ? $this->maxProgressBarSize : $this->maximumEntries;
         }
 
         /**
          * Returns the max length of the progress bar.
          */
         private function maxProgressBarLength(): int {
-            return 2 + strlen($this->maximumEntries) + 3 + strlen($this->maximumEntries) + strlen($this->style::startCharacter()) + $this->maximumEntries + strlen($this->style::endCharacter()) + 7;
+            return 2 + strlen($this->maximumEntries) + 3 + strlen($this->maximumEntries) + strlen($this->style::startCharacter()) + ($this->maximumEntries()) + strlen($this->style::endCharacter()) + 7;
         }
 
         /**
@@ -296,6 +324,42 @@
             $this->displaySeverityWithIcons = true;
             
             return $this;
+        }
+
+        /**
+         * Force the progress bar do adopt a fixed size.
+         * 
+         * @param int $size The desired size.
+         * @return \Khalyomede\ConsoleReporter
+         * @throws InvalidArgumentException If the size is lower than 1.
+         */
+        public function setProgressBarSize(int $size): ConsoleReporter {
+            if( $size < 1 ) {
+                throw new InvalidArgumentException('ConsoleReporter::setProgressBarSize expects parameter 1 to be an integer greater than 0');
+            }
+
+            $this->restrictedProgressBarSize = true;
+            $this->maxProgressBarSize = $size;
+            
+            return $this;
+        }
+
+        /**
+         * Returns the number of "progress character" to print.
+         * This depends on wether the restricted progress bar 
+         * size have been enabled with 
+         * ConsoleReporter::setProgressBarSize() or not.
+         * 
+         * @return int
+         */
+        private function numberOfProgressCharacterToPrint(): int {
+            $numberOfProgressCharacterToPrint = $this->currentIndex;
+
+            if( $this->restrictedProgressBarSize === true ) {
+                $numberOfProgressCharacterToPrint = (int) floor( ($this->currentIndex * $this->maxProgressBarSize) / $this->maximumEntries );
+            }
+
+            return $numberOfProgressCharacterToPrint;
         }
     }
 ?>
